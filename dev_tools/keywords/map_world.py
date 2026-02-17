@@ -36,3 +36,8 @@ class GenerateMapWorld(GenerateKeyword):
             world_id=4,
             short_name='Amphoreus'
         )
+        yield dict(
+            text_id=to_id('Planarcadia'),
+            world_id=5,
+            short_name='Planarcadia'
+        )
