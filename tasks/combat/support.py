@@ -9,7 +9,7 @@ from module.ui.scroll import AdaptiveScroll
 from tasks.base.assets.assets_base_popup import POPUP_CANCEL
 from tasks.character.keywords import CharacterList
 from tasks.combat.assets.assets_combat_support import *
-from tasks.combat.assets.assets_combat_support_tab import SUPPORT_EMPTY
+from tasks.combat.assets.assets_combat_support_tab import SUPPORT_EMPTY, FRIEND_ONLY
 from tasks.combat.assets.assets_combat_team import COMBAT_TEAM_DISMISSSUPPORT, COMBAT_TEAM_SUPPORT
 from tasks.combat.state import CombatState
 from tasks.combat.support_tab import support_tab
@@ -195,6 +195,19 @@ class CombatSupport(CombatState):
                 self.interval_reset(SUPPORT_EMPTY)
                 self.interval_clear(COMBAT_SUPPORT_LIST)
                 continue
+
+    def _support_disable_friend_only(self):
+        logger.info('Support disable friend only')
+        interval = Timer.from_seconds(3)
+        for _ in self.loop():
+            appear = self.image_color_count(FRIEND_ONLY, color=(255, 200, 112), threshold=221, count=400)
+            if appear:
+                if interval.reached():
+                    self.device.click(FRIEND_ONLY)
+                    interval.reset()
+                    continue
+            else:
+                break
 
     def _get_character(self, support_character_name: str) -> SupportCharacter:
         if support_character_name.startswith("Trailblazer"):
