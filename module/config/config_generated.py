@@ -56,6 +56,7 @@ class GeneratedConfig:
     # Group `DungeonSupport`
     DungeonSupport_Use = 'when_daily'  # always_use, when_daily, do_not_use
     DungeonSupport_Character = 'FirstCharacter'  # FirstCharacter, Sparxie, YaoGuang, TheDahlia, Cyrene, Evernight, DanHengPermansorTerrae, Hysilens, Cerydra, Phainon, Saber, Archer, Hyacine, Cipher, Castorice, Anaxa, Tribbie, Mydei, TheHerta, Aglaea, Sunday, Fugue, Rappa, Feixiao, Lingsha, Moze, Yunli, March7thTheHunt, Jiaoqiu, Firefly, Jade, Robin, Boothill, Acheron, Aventurine, Gallagher, BlackSwan, Sparkle, Misha, RuanMei, DrRatio, Xueyi, Huohuo, Argenti, Hanya, Jingliu, TopazNumby, Guinaifen, DanHengImbibitorLunae, FuXuan, Lynx, Blade, Kafka, Luka, SilverWolf, Luocha, Yukong, Seele, JingYuan, TrailblazerDestruction, TrailblazerPreservation, TrailblazerHarmony, TrailblazerRemembrance, Himeko, Welt, Gepard, Bronya, Clara, Yanqing, Bailu, March7thPreservation, DanHeng, Asta, Serval, Herta, Qingque, Sushang, Hook, Arlan, Sampo, Tingyun, Pela, Natasha
+    DungeonSupport_Replace = 4  # 1, 2, 3, 4
 
     # Group `DungeonStorage`
     DungeonStorage_TrailblazePower = {}

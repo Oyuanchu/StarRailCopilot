@@ -1342,6 +1342,16 @@
           "Pela",
           "Natasha"
         ]
+      },
+      "Replace": {
+        "type": "select",
+        "value": 4,
+        "option": [
+          1,
+          2,
+          3,
+          4
+        ]
       }
     },
     "DungeonStorage": {
@@ -1605,6 +1615,16 @@
           "Tingyun",
           "Pela",
           "Natasha"
+        ]
+      },
+      "Replace": {
+        "type": "select",
+        "value": 4,
+        "option": [
+          1,
+          2,
+          3,
+          4
         ]
       }
     },
@@ -2199,6 +2219,16 @@
           "Tingyun",
           "Pela",
           "Natasha"
+        ]
+      },
+      "Replace": {
+        "type": "select",
+        "value": 4,
+        "option": [
+          1,
+          2,
+          3,
+          4
         ]
       }
     }

@@ -118,6 +118,9 @@ DungeonSupport:
     # Options will be injected in config updater
     value: FirstCharacter
     option: [ FirstCharacter, ]
+  Replace:
+    value: 4
+    option: [ 1, 2, 3, 4 ]
 DungeonStorage:
   TrailblazePower:
     stored: StoredTrailblazePower

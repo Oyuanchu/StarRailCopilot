@@ -140,7 +140,8 @@
     },
     "DungeonSupport": {
       "Use": "when_daily",
-      "Character": "FirstCharacter"
+      "Character": "FirstCharacter",
+      "Replace": 4
     },
     "DungeonStorage": {
       "TrailblazePower": {},
@@ -175,7 +176,8 @@
     },
     "DungeonSupport": {
       "Use": "when_daily",
-      "Character": "FirstCharacter"
+      "Character": "FirstCharacter",
+      "Replace": 4
     },
     "TrailblazePower": {
       "ExtractReservedTrailblazePower": false,
@@ -278,7 +280,8 @@
     },
     "DungeonSupport": {
       "Use": "do_not_use",
-      "Character": "FirstCharacter"
+      "Character": "FirstCharacter",
+      "Replace": 4
     }
   },
   "Rogue": {

@@ -138,7 +138,10 @@ class Combat(CombatInteract, CombatPrepare, CombatSupport, CombatTeam, CombatSki
         else:
             support_set = True
         combat_prepared = False
-        logger.info([support_character, support_set])
+        # DungeonSupport_Replace is a minor setting that does not affected by daily quests
+        # so no deep argument passing
+        replace = self.config.DungeonSupport_Replace
+        logger.info([support_character, support_set, replace])
         combat_trial = 0
         team_trial = 0
         for _ in self.loop():
@@ -157,7 +160,7 @@ class Combat(CombatInteract, CombatPrepare, CombatSupport, CombatTeam, CombatSki
             # Click
             if support_character and self.appear(COMBAT_TEAM_SUPPORT, interval=2):
                 self.team_set(team)
-                self.support_set(support_character)
+                self.support_set(support_character, replace=replace)
                 self.interval_reset(COMBAT_TEAM_SUPPORT)
                 support_set = True
                 continue

@@ -11,6 +11,7 @@ from tasks.character.keywords import CharacterList
 from tasks.combat.assets.assets_combat_support import *
 from tasks.combat.assets.assets_combat_support_tab import FRIEND_ONLY
 from tasks.combat.state import CombatState
+from tasks.combat.support_tab import support_tab
 
 
 def get_position_in_original_image(position_in_croped_image, crop_area):
@@ -182,6 +183,9 @@ class CombatSupport(CombatState):
                 continue
 
         # select support
+        tab = support_tab()
+        tab.set('Support', main=self)
+        self._support_disable_friend_only()
         self._search_support_with_fallback(name, replace=replace)
 
         # COMBAT_SUPPORT_LIST -> COMBAT_PREPARE

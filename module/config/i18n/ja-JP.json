@@ -420,15 +420,15 @@
       "help": "DungeonSupport._info.help"
     },
     "Use": {
-      "name": "DungeonSupport.Use.name",
-      "help": "DungeonSupport.Use.help",
+      "name": "サポートを使用",
+      "help": "",
       "always_use": "always_use",
       "when_daily": "when_daily",
       "do_not_use": "do_not_use"
     },
     "Character": {
-      "name": "DungeonSupport.Character.name",
-      "help": "DungeonSupport.Character.help",
+      "name": "サポートキャラ",
+      "help": "フレンドのサポートキャラクターを選択します。見つからない場合は、最初のキャラクターが選択されます。フレンドをピン留めすることをお勧めします。",
       "FirstCharacter": "FirstCharacter",
       "Sparxie": "[4.0] 火花",
       "YaoGuang": "[4.0] 爻光",
@@ -512,6 +512,14 @@
       "Tingyun": "停雲",
       "Pela": "ペラ",
       "Natasha": "ナターシャ"
+    },
+    "Replace": {
+      "name": "サポート入れ替え位置",
+      "help": "サポートキャラクターはチーム内の指定された位置と入れ替わります。サポートキャラクターがチーム内のキャラクターと重複する場合、そのキャラクターと直接入れ替わり、この設定は無効になります。チームが満員でない場合、サポートキャラクターは直接チームに入り、この設定は無効になります。",
+      "1": "1番目",
+      "2": "2番目",
+      "3": "3番目",
+      "4": "4番目"
     }
   },
   "DungeonStorage": {

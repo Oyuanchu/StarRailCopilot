@@ -420,7 +420,7 @@
       "help": ""
     },
     "Use": {
-      "name": "Usar Apoyo de amigo",
+      "name": "Usar apoyo",
       "help": "",
       "always_use": "Siempre",
       "when_daily": "Solo cuando lo requiera una misión",
@@ -428,7 +428,7 @@
     },
     "Character": {
       "name": "Personaje de apoyo",
-      "help": "Selecciona qué personaje de apoyo de un amigo se usará. Si no se encuentra, se seleccionará al predeterminado.\nEl personaje de apoyo no debe ser el mismo que el personaje del equipo, se recomienda priorizar a los amigos.",
+      "help": "Selecciona un personaje de apoyo del amigo. Si no se encuentra, se seleccionará el primer personaje. Se recomienda marcar a los personajes de amigos.",
       "FirstCharacter": "Primer personaje",
       "Sparxie": "[4.0] Chispa",
       "YaoGuang": "[4.0] Yao Guang",
@@ -512,6 +512,14 @@
       "Tingyun": "Tingyun",
       "Pela": "Pela",
       "Natasha": "Natasha"
+    },
+    "Replace": {
+      "name": "Posición de reemplazo del apoyo",
+      "help": "El personaje de apoyo reemplazará la posición especificada en el equipo. Si el personaje de apoyo es el mismo que un personaje ya presente en el equipo, se reemplazará directamente y este ajuste no tendrá efecto. Si el equipo no está lleno, el personaje de apoyo entrará directamente y este ajuste no tendrá efecto.",
+      "1": "Posición 1",
+      "2": "Posición 2",
+      "3": "Posición 3",
+      "4": "Posición 4"
     }
   },
   "DungeonStorage": {

@@ -420,7 +420,7 @@
       "help": ""
     },
     "Use": {
-      "name": "Use Friend Support",
+      "name": "Use Support",
       "help": "",
       "always_use": "Always Use",
       "when_daily": "Use Only When Required by Dailies",
@@ -428,7 +428,7 @@
     },
     "Character": {
       "name": "Support Character",
-      "help": "Select a friend support character, if not found, select the default (first) role\nSupport character should not be the same as the character in the team, recommended to prioritize friends.",
+      "help": "Select a friend support character. If not found, the first character will be selected. Recommended to pin friend characters.",
       "FirstCharacter": "First Character",
       "Sparxie": "[4.0] Sparxie",
       "YaoGuang": "[4.0] Yao Guang",
@@ -512,6 +512,14 @@
       "Tingyun": "Tingyun",
       "Pela": "Pela",
       "Natasha": "Natasha"
+    },
+    "Replace": {
+      "name": "Support Replacement Position",
+      "help": "Support character will replace the specified position in the team. If the support character is the same as a character already in the team, it will replace that character directly, and this setting would not take effect. If the team is not full, the support character enters the team directly, and this setting would not take effect.",
+      "1": "Slot 1",
+      "2": "Slot 2",
+      "3": "Slot 3",
+      "4": "Slot 4"
     }
   },
   "DungeonStorage": {
