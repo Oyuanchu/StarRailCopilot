@@ -1662,9 +1662,10 @@
       "Divergent_Universe_Smelted_Heart": "飾品：盗賊 & ウェンワーク（鋼の意志）",
       "Divergent_Universe_Untoppled_Walls": "飾品：宇宙 & 仙舟（不動の砦）"
     },
-    "Team": {
-      "name": "Ornament.Team.name",
-      "help": "Ornament.Team.help",
+    "Team40": {
+      "name": "出撃チーム",
+      "help": "指定されたチームはデフォルトの名前を使用する必要があります。カスタムチーム名は使用できません。\n注意：ゲームクライアントは前回のチームをクラウド同期できないため、チームを指定することをお勧めします。",
+      "0": "前回のチーム",
       "1": "1",
       "2": "2",
       "3": "3",

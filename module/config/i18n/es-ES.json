@@ -1662,9 +1662,10 @@
       "Divergent_Universe_Smelted_Heart": "Ornamentos: Forajidos & Vonwacq (Corazón de fundición)",
       "Divergent_Universe_Untoppled_Walls": "Ornamentos: Espacios & Eternos Flota (Muros inquebrantables)"
     },
-    "Team": {
+    "Team40": {
       "name": "Equipo de mazmorra",
-      "help": "El equipo especificado debe usar el nombre predeterminado; no se permiten nombres de equipo personalizados.",
+      "help": "El equipo especificado debe usar el nombre predeterminado; no se permiten nombres de equipo personalizados.\nNota: El cliente del juego no puede sincronizar en la nube el último equipo utilizado; se recomienda especificar un equipo.",
+      "0": "Último equipo utilizado",
       "1": "1",
       "2": "2",
       "3": "3",

@@ -1474,12 +1474,11 @@
           "Divergent_Universe_Untoppled_Walls"
         ]
       },
-      "Team": {
+      "Team40": {
         "type": "select",
-        "value": 1,
-        "keepvalue": true,
-        "display": "hide",
+        "value": 0,
         "option": [
+          0,
           1,
           2,
           3,

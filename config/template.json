@@ -169,7 +169,7 @@
     },
     "Ornament": {
       "Dungeon": "Divergent_Universe_Eternal_Comedy",
-      "Team": 1,
+      "Team40": 0,
       "UseImmersifier": true,
       "DoubleEvent": true,
       "UseStamina": false

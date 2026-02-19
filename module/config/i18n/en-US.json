@@ -1662,9 +1662,10 @@
       "Divergent_Universe_Smelted_Heart": "Ornament: Banditry & Vonwacq (Smelted Heart)",
       "Divergent_Universe_Untoppled_Walls": "Ornament: Space & Ageless Fleet (Untoppled Walls)"
     },
-    "Team": {
+    "Team40": {
       "name": "Dungeon Team",
-      "help": "The specified team must use the default name; custom team names are not allowed.",
+      "help": "The specified team must use the default name; custom team names are not allowed.\nNote: The game client cannot cloud sync the last team used; it is recommended to specify a team.",
+      "0": "Last team used",
       "1": "1",
       "2": "2",
       "3": "3",
