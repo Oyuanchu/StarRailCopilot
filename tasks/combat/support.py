@@ -9,6 +9,7 @@ from module.logger import logger
 from module.ui.scroll import AdaptiveScroll
 from tasks.character.keywords import CharacterList
 from tasks.combat.assets.assets_combat_support import *
+from tasks.combat.assets.assets_combat_support_dev import LIST_REFRESHED, LIST_REFRESH
 from tasks.combat.assets.assets_combat_support_tab import FRIEND_ONLY
 from tasks.combat.state import CombatState
 from tasks.combat.support_tab import support_tab
@@ -64,7 +65,7 @@ class SupportCharacter:
             }
             if name in dict_skin:
                 for skin in dict_skin[name]:
-                    character = cls(skin, self.device.image)
+                    character = cls(skin, screenshot)
                     if character:
                         return character
             # Should return something
@@ -154,11 +155,27 @@ class FirstCharacter(SupportCharacter):
 
 
 class CombatSupport(CombatState):
-    def support_set(self, name: str = "FirstCharacter", replace=4):
+    def _on_enter_support(self):
+        # abstract, so ornament can override
+        tab = support_tab()
+        tab.set('Support', main=self)
+        self._support_disable_friend_only()
+
+    def support_set(
+            self,
+            name: str = "FirstCharacter",
+            replace=4,
+            support_button=COMBAT_TEAM_SUPPORT,
+            dismiss_button=COMBAT_TEAM_DISMISSSUPPORT,
+            confirm_button=COMBAT_SUPPORT_ADD,
+    ):
         """
         Args:
             name: Support character name
             replace (int): 1 to 4
+            support_button:
+            dismiss_button:
+            confirm_button:
 
         Returns:
             bool: If clicked
@@ -171,37 +188,36 @@ class CombatSupport(CombatState):
         logger.hr("Combat support", level=2)
         if isinstance(name, CharacterList):
             name = name.name
-        self.interval_clear(COMBAT_TEAM_SUPPORT)
+        self.interval_clear(support_button)
 
         # COMBAT_PREPARE -> COMBAT_SUPPORT_LIST
         for _ in self.loop():
-            if self.match_template_luma(COMBAT_TEAM_DISMISSSUPPORT):
+            if self.match_template_luma(dismiss_button):
                 return True
             if self.appear(COMBAT_SUPPORT_LIST):
-                break
-            if self.appear_then_click(COMBAT_TEAM_SUPPORT, interval=5):
+                # check refresh also, because ornament team page has COMBAT_SUPPORT_LIST too
+                if self.match_template_color(LIST_REFRESH) or self.match_template_color(LIST_REFRESHED):
+                    break
+            if self.appear_then_click(support_button, interval=5):
                 continue
 
         # select support
-        tab = support_tab()
-        tab.set('Support', main=self)
-        self._support_disable_friend_only()
+        self._on_enter_support()
         self._search_support_with_fallback(name, replace=replace)
 
         # COMBAT_SUPPORT_LIST -> COMBAT_PREPARE
         for _ in self.loop():
-            if self.appear(COMBAT_TEAM_DISMISSSUPPORT):
+            if self.match_template_luma(dismiss_button):
+                logger.info('Combat support ended')
                 return True
             if self.is_combat_executing():
                 # Entered combat unexpectedly, probably double-clicked COMBAT_SUPPORT_ADD
                 logger.warning('support_set ended at is_combat_executing')
                 return True
             if self.appear(COMBAT_SUPPORT_LIST, interval=5):
-                self.device.click(COMBAT_SUPPORT_ADD)
+                self.device.click(confirm_button)
                 self.interval_reset(COMBAT_SUPPORT_LIST)
                 continue
-
-        logger.info('Combat support ended')
 
     def _support_disable_friend_only(self):
         logger.info('Support disable friend only')

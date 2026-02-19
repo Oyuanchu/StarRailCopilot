@@ -4,10 +4,7 @@ from module.device.platform.utils import cached_property
 from module.exception import RequestHumanTakeover
 from module.logger import logger
 from tasks.base.assets.assets_base_page import MAP_EXIT
-from tasks.base.assets.assets_base_popup import POPUP_CANCEL
-from tasks.character.keywords import CharacterList
 from tasks.combat.assets.assets_combat_prepare import COMBAT_PREPARE, WAVE_CHECK, WAVE_CHECK_SEARCH
-from tasks.combat.assets.assets_combat_support import COMBAT_SUPPORT_LIST
 from tasks.combat.prepare import WaveDigit
 from tasks.dungeon.dungeon import Dungeon
 from tasks.dungeon.keywords import DungeonList
@@ -89,64 +86,30 @@ class OrnamentCombat(Dungeon, RouteLoader):
         self.oe_leave()
         return True
 
-    def _search_support_with_fallback(self, name: str = "JingYuan"):
-        # In Ornament Extraction, first character isn't selected by default
-        if name == "FirstCharacter":
-            self._select_first()
-            return True
-        return super()._search_support_with_fallback(name)
+    @cached_property
+    def _dict_character_slot(self):
+        return {
+            1: OE_SLOT_1,
+            2: OE_SLOT_2,
+            3: OE_SLOT_3,
+            4: OE_SLOT_4,
+        }
 
-    def support_set(self, name: str = "FirstCharacter"):
-        """
-        Args:
-            name: Support character name
+    def _on_enter_support(self):
+        # ornament support has not tab
+        self._support_disable_friend_only()
 
-        Returns:
-            bool: If clicked
-
-        Pages:
-            in: COMBAT_PREPARE
-            mid: COMBAT_SUPPORT_LIST
-            out: COMBAT_PREPARE
-        """
-        logger.hr("Combat support")
-        if isinstance(name, CharacterList):
-            name = name.name
-        self.interval_clear(SUPPORT_ADD)
-        skip_first_screenshot = True
-        selected_support = False
-        while 1:
-            if skip_first_screenshot:
-                skip_first_screenshot = False
-            else:
-                self.device.screenshot()
-
-            # End
-            if self.match_template_luma(SUPPORT_DISMISS):
-                return True
-
-            # Click
-            # small icon, use match_template_luma
-            if self.match_template_luma(SUPPORT_ADD, interval=2):
-                self.device.click(SUPPORT_ADD)
-                self.interval_reset(SUPPORT_ADD)
-                continue
-            if self.appear(POPUP_CANCEL, interval=1):
-                logger.warning(
-                    "selected identical character, trying select another")
-                self._cancel_popup()
-                self._select_next_support()
-                self.interval_reset(POPUP_CANCEL)
-                continue
-            if self.appear(COMBAT_SUPPORT_LIST, interval=2):
-                if not selected_support:
-                    # Search support
-                    if not selected_support:
-                        self._search_support_with_fallback(name)
-                        selected_support = True
-                self.device.click(SUPPORT_ADD)
-                self.interval_reset(COMBAT_SUPPORT_LIST)
-                continue
+    def support_set(
+            self,
+            name: str = "FirstCharacter",
+            replace=4,
+            support_button=SUPPORT_ADD,
+            dismiss_button=SUPPORT_DISMISS,
+            confirm_button=PREPARE_CLOSE,
+    ):
+        super().support_set(
+            name, replace=replace,
+            support_button=support_button, dismiss_button=dismiss_button, confirm_button=confirm_button)
 
     def get_equivalent_stamina(self):
         value = self.config.stored.Immersifier.value * 40
