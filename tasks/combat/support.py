@@ -59,6 +59,7 @@ class SupportCharacter:
             dict_skin: "dict[str, list[str]]" = {
                 'March7thPreservation': ['March7thPreservation.2'],
                 'Firefly': ['Firefly.2'],
+                'RuanMei': ['RuanMei.2'],
             }
             if name in dict_skin:
                 for skin in dict_skin[name]:
