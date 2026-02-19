@@ -1,5 +1,4 @@
 import module.config.server as server
-from module.base.decorator import run_once
 from module.device.platform.utils import cached_property
 from module.exception import RequestHumanTakeover
 from module.logger import logger
@@ -14,6 +13,7 @@ from tasks.ornament.assets.assets_ornament_combat import *
 from tasks.ornament.assets.assets_ornament_prepare import *
 from tasks.ornament.assets.assets_ornament_special import *
 from tasks.ornament.assets.assets_ornament_ui import *
+from tasks.ornament.team import OrnamentTeam
 from tasks.rogue.route.loader import RouteLoader, model_from_json
 from tasks.rogue.route.model import RogueRouteListModel, RogueRouteModel
 
@@ -22,7 +22,7 @@ class OrnamentTeamNotPrepared(Exception):
     pass
 
 
-class OrnamentCombat(Dungeon, RouteLoader):
+class OrnamentCombat(Dungeon, RouteLoader, OrnamentTeam):
     def combat_enter_from_map(self, skip_first_screenshot=True):
         # Don't enter from map, UI too deep inside
         # Enter from survival index instead
@@ -159,16 +159,6 @@ class OrnamentCombat(Dungeon, RouteLoader):
         logger.attr('TrailblazePowerExhausted', flag)
         return flag
 
-    def is_team_prepared(self) -> bool:
-        """
-        Pages:
-            in: COMBAT_PREPARE
-        """
-        slots = CHARACTER_EMPTY_OE.match_multi_template(self.device.image)
-        slots = 4 - len(slots)
-        logger.attr('TeamSlotsPrepared', slots)
-        return slots > 0
-
     def combat_set_wave(self, count=6, total=6):
         """
         Args:
@@ -201,19 +191,11 @@ class OrnamentCombat(Dungeon, RouteLoader):
             out: is_in_main
         """
         self.combat_wave_cost = 40
-
-        @run_once
-        def check_team_prepare():
-            if not self.is_team_prepared():
-                logger.error(f'Please prepare your team in Ornament Extraction')
-                raise OrnamentTeamNotPrepared
-
         logger.hr('Combat prepare')
 
         # wait WAVE_SLIDER_OE
         WAVE_CHECK.load_search(WAVE_CHECK_SEARCH)
         for _ in self.loop():
-            check_team_prepare()
             if self.match_template_luma(WAVE_CHECK):
                 break
 
@@ -240,22 +222,29 @@ class OrnamentCombat(Dungeon, RouteLoader):
             self.oe_leave()
             return False
 
+        # select team
+        team = self.config.Ornament_Team40
+        team_set = False
+        if team > 0:
+            if self.ornament_team_set(team):
+                team_set = True
+        if not team_set:
+            slots = 4 - len(self._get_empty_slot())
+            logger.attr('TeamSlotsPrepared', slots)
+            if slots <= 0:
+                logger.error(f'Please prepare your team in Ornament Extraction')
+                raise OrnamentTeamNotPrepared
+
         # select support
         if support_character:
             # Block COMBAT_TEAM_PREPARE before support set
             support_set = False
         else:
             support_set = True
-        logger.info([support_character, support_set])
+        replace = self.config.DungeonSupport_Replace
+        logger.info([support_character, support_set, replace])
         if support_character:
-            self.support_set(support_character)
-            # wait until support aside closed
-            for _ in self.loop(timeout=1):
-                if self.match_template_color(DU_CHECK):
-                    logger.info('Support aside closed')
-                    break
-            else:
-                logger.warning('Wait support aside closed timeout')
+            self.support_set(support_character, replace=replace)
 
         # enter combat
         trial = 0
@@ -273,8 +262,6 @@ class OrnamentCombat(Dungeon, RouteLoader):
             if trial > 5:
                 logger.critical('Failed to enter dungeon after 5 trial, probably because relics are full')
                 raise RequestHumanTakeover
-            if self.match_template_luma(SUPPORT_ADD):
-                check_team_prepare()
 
             # Click
             if self.appear(COMBAT_PREPARE, interval=5):

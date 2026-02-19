@@ -67,10 +67,10 @@ COMBAT_SUPPORT_LIST_GRID = ButtonWrapper(
     name='COMBAT_SUPPORT_LIST_GRID',
     share=Button(
         file='./assets/share/combat/support/COMBAT_SUPPORT_LIST_GRID.png',
-        area=(26, 109, 131, 634),
-        search=(6, 89, 151, 654),
+        area=(26, 128, 131, 634),
+        search=(6, 108, 151, 654),
         color=(101, 87, 99),
-        button=(26, 109, 131, 634),
+        button=(26, 128, 131, 634),
     ),
 )
 COMBAT_SUPPORT_LIST_SCROLL = ButtonWrapper(
